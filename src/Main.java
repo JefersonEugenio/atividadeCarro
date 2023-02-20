@@ -4,6 +4,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner entrada = new Scanner(System.in);
         int acao;
+        boolean loop = true;
 
         System.out.println("Qual marca do carro: ");
         String marca = entrada.next();
@@ -16,30 +17,44 @@ public class Main {
 
         Carro carro = new Carro(marca, modelo, ano);
 
-        while (true) {
+        while (loop) {
             System.out.println("Sua velocidade está " + carro.velocidadeAtual + "Km/h");
             System.out.println("--------------------------------------------------");
-            if (0 < carro.velocidadeAtual || 220 > carro.velocidadeAtual) {
-                System.out.println("Você quer fazer(ação):");
-                System.out.println("1: FREAR  2: ACELERAR  3: FIM(IMPRIMIR)");
-                acao = entrada.nextInt();
-                if (acao == 1) {
-                    carro.frear();
-                } else if (acao == 2) {
-                    carro.acelerar();
-                } else if (acao == 3) {
+            System.out.println("Você quer fazer(ação):");
+            System.out.println("1: FREAR  2: ACELERAR  3: FIM(IMPRIMIR)");
+            acao = entrada.nextInt();
+            switch (acao) {
+                case 1:
+                    if (carro.velocidadeAtual > 0) {
+                        carro.frear();
+                    } else if (carro.velocidadeAtual == 0) {
+                        System.out.println("Sua velocidade está PARADO");
+                    } else {
+                        System.out.println("INVALIDO");
+                    }
                     break;
-                }
-            } else {
-                System.out.println("VELOCIDADE INVALIDO!");
-                break;
+                case 2:
+                    if (carro.velocidadeAtual < 220) {
+                        carro.acelerar();
+                    } else if (carro.velocidadeAtual == 220) {
+                        System.out.println("Sua velocidade está MAXIMO acelerado");
+                    } else {
+                        System.out.println("INVALIDO");
+                    }
+                    break;
+                case 3:
+                    System.out.println("--------------------------------------------------");
+                    System.out.println("MARCA: " + carro.marca);
+                    System.out.println("MODELO: " + carro.modelo);
+                    System.out.println("ANO DE FABRICAÇÃO: " + carro.anoFabricado);
+                    System.out.println("SUA VELOCIDADE ESTÁ " + carro.velocidadeAtual + "Km/h");
+                    loop = false;
+                    break;
+                default:
+                    System.out.println("OPCAO INVALIDO, SOMENTE (1) FREAR (2) ACELERAR (3) FIM (IMPRIMIR)");
+                    break;
             }
             System.out.println("--------------------------------------------------");
         }
-        System.out.println("--------------------------------------------------");
-        System.out.println("MARCA: " + carro.marca);
-        System.out.println("MODELO: " + carro.modelo);
-        System.out.println("ANO DE FABRICAÇÃO: " + carro.anoFabricado);
-        System.out.println("SUA VELOCIDADE ESTÁ " + carro.velocidadeAtual + "Km/h");
     }
 }
