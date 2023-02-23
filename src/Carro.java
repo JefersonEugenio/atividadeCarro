@@ -9,11 +9,11 @@ public class Carro {
     }
 
     public void acelerar() {
-        velocidadeAtual = velocidadeAtual + 10;
+        velocidadeAtual += 10;
     }
 
     public void frear() {
-        velocidadeAtual = velocidadeAtual - 10;
+        velocidadeAtual -= 10;
     }
 
 }
